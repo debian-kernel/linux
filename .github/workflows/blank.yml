@@ -26,5 +26,5 @@ jobs:
           title: "Auto build linux"
           files: |
             /home/runner/work/debian-kernel/*.deb
-            /home/runner/work/debian-kernel/debian-kernel/*.deb
+            /home/runner/work/debian-kernel/linux/*.deb
 
