@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ linux, libre ]
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: |
+          sudo apt update
+          sudo apt install devscripts equivs -yq
+          yes | sudo mk-build-deps -i
+          sudo dpkg-buildpackage -b
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "linux"
+          prerelease: false
+          title: "Auto build linux"
+          files: |
+            /home/runner/work/debian-kernel/*.deb
+            /home/runner/work/debian-kernel/debian-kernel/*.deb
+

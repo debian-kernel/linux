@@ -1,0 +1,7 @@
+for d in $(ls /lib/modules) ; do
+    set -x
+    depmod -a $d
+    update-initramfs -u -k $d
+    set +x
+done
+update-grub

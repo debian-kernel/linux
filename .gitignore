@@ -1,0 +1,8 @@
+.stage
+/linux*
+debian/linux
+debian/.debhelper
+x86_64_defconfig
+debian/linux.debhelper.log
+debian/linux.substvars
+debian/files
