@@ -25,6 +25,6 @@ jobs:
           prerelease: false
           title: "Auto build linux"
           files: |
-            /home/runner/work/debian-kernel/*.deb
-            /home/runner/work/debian-kernel/linux/*.deb
+            /home/runner/work/linux/*.deb
+            /home/runner/work/linux/linux/*.deb
 
