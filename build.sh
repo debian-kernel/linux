@@ -9,7 +9,7 @@ fi
 sed -i "s/9999/${VERSION}/g" debian/changelog
 # Stage 1: Get version and fetch source code
 # fetch source
-wget -c https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz
+wget -c https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${VERSION}.tar.xz
 # extrack if directory not exists
 [[ -d linux-${VERSION} ]] || tar -xf linux-${VERSION}.tar.xz
 echo 1 > .stage
