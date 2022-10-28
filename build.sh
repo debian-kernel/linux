@@ -10,4 +10,5 @@ sed -i "s/9999/${VERSION}/g" debian/changelog
 # Stage 1: Get version and fetch source code
 # fetch source
 wget https://gitlab.com/sulix/devel/sources/mklinux/-/raw/master/mklinux.sh -O mklinux
-ALLOWROOT=1 bash mklinux -o "$pkgdir" -t linux -c "https://gitlab.com/sulix/devel/sources/mklinux/-/raw/master/config" -y 1
+mkdir -p ./debian/linux
+ALLOWROOT=1 bash mklinux -o "./debian/linux" -t linux -c "https://gitlab.com/sulix/devel/sources/mklinux/-/raw/master/config" -y 1
