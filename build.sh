@@ -12,3 +12,5 @@ sed -i "s/9999/${VERSION}/g" debian/changelog
 wget https://gitlab.com/sulix/devel/sources/mklinux/-/raw/master/mklinux.sh -O mklinux
 mkdir -p ./debian/linux
 ALLOWROOT=1 bash mklinux -o "./debian/linux" -t linux -c "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/linux/trunk/config" -y 1
+# decompress for initramfs-tools
+find ./debian/linux -type f -iname "*.ko.zst" -exec zstd -d --rm {} \;
