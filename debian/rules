@@ -15,6 +15,9 @@ elif [[ $1 == binary ]] ; then
     dh_gencontrol -a
     dh_md5sums -a
     dh_builddeb -a
+elif [[ $1 == override_dh_builddeb ]] ; then
+    dh_builddeb -- -Zgzip   
 else
     dh $@
 fi
+:
