@@ -2,7 +2,7 @@ Source: linux
 Section: utils
 Priority: optional
 Maintainer: Ali Riza KESKIN <parduscix@yandex.ru>
-Build-Depends: make, dwarves, flex, libssl-dev, bison, bc, zstd, libelf-dev, libncurses-dev, wget, curl
+Build-Depends: make, dwarves, flex, libssl-dev, bison, bc, zstd, libelf-dev, libncurses-dev, wget, curl, depmod, cpio
 Standards-Version: 4.3.0
 Homepage: https://example.org
 
