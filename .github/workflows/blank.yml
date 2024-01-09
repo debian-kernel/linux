@@ -6,23 +6,37 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+  workflow_dispatch:
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: build
-        run: |
-          sudo apt update
-          sudo apt install devscripts equivs -yq
-          yes | sudo mk-build-deps -i
-          DEB_BUILD_OPTIONS=noautodbgsym sudo dpkg-buildpackage -b -Zgzip
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "linux"
-          prerelease: false
-          title: "Auto build linux"
-          files: |
-            /home/runner/work/linux/*.deb
-            /home/runner/work/linux/linux/*.deb
+    compile:
+        name: Create deb package
+        runs-on: ubuntu-latest
+        steps:
+          - name: Check out the repo
+            uses: actions/checkout@v2
+          - name: Run the build process with Docker
+            uses: addnab/docker-run-action@v3
+            with:
+                image: debian:testing
+                options: -v ${{ github.workspace }}:/root -v /output:/output
+                run: |
+                    set -ex
+                    cd /root
+                    apt update
+                    apt install devscripts equivs -y
+                    yes | mk-build-deps --install
+                    debuild -us -uc -b
+                    mkdir -p /output/
+                    mv ../*.deb /output/
+                    mv ./*.deb /output/
+
+          - uses: "marvinpinto/action-automatic-releases@latest"
+            with:
+                repo_token: "${{ secrets.GITHUB_TOKEN }}"
+                automatic_release_tag: "current"
+                prerelease: false
+                title: "Latest release"
+                files: |
+                  /output/*
+
